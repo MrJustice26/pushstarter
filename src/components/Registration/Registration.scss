@@ -1,0 +1,56 @@
+@import '../mixins.scss';
+@import '../vars.scss';
+@import '../styleguide/buttons.scss';
+.login {
+    &__container {
+        max-width: 100vw;
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+    }
+    &__inner {
+        width: 300px;
+        padding: 2.2rem 3.33rem;
+        @include boxShadow(0, 0, 10px, 0, rgba(0, 0, 0, 0.25));
+        @include flexCenter();
+    }
+
+    &__heading {
+        text-align: center;
+        margin: 0 0 3.8rem;
+        color: $black;
+    }
+
+    &__input {
+        margin-bottom: 2rem;
+        @include flexCenter();
+
+        label {
+            color: $grey;
+            font-weight: bold;
+            font-size: 1rem;
+            margin-bottom: 0.2rem;
+        }
+
+        input {
+            color: $grey;
+            font-weight: 500;
+            font-family: "Montserrat", sans-serif;
+            font-size: 1.33rem;
+            border: 2px solid $grey;
+            height: 2.33rem;
+            border-radius: 5px;
+
+            &:focus {
+                border: 2px solid $primary;
+            }
+        }
+    }
+
+    &__button {
+        margin-top: 1.8rem;
+    }
+}
