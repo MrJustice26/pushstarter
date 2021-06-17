@@ -1,6 +1,7 @@
 import React from 'react';
 import { createMuiTheme, ThemeProvider} from '@material-ui/core';
 import {SignIn, SignUp} from './components/Registration';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 const theme = createMuiTheme({
   palette: {
@@ -12,15 +13,32 @@ const theme = createMuiTheme({
       main: '#212121',
       light: '#616161'
     }
+  },
+  typography: {
+    fontFamily: [
+      '"Montserrat"',
+      'sans-serif'
+    ].join(',')
   }
 })
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <div className="App">
-        <SignUp />
-      </div>
+      <BrowserRouter>
+        <div className="App">
+          <Switch>
+            <Route path="/signin">
+              <SignIn />
+            </Route>
+            <Route path="/signup">
+              <SignUp />
+            </Route>
+          </Switch>
+          
+        </div>
+      </BrowserRouter>
+      
     </ThemeProvider>
     
   );
