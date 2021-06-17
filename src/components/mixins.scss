@@ -4,8 +4,17 @@
     box-shadow: $x $y $blur $spread $color;
 }
 
-@mixin flexCenter(){
+@mixin flexCenter($jc, $fd, $aligni:'normal'){
     display: flex;
-    justify-content: center;
-    flex-direction: column;
+    justify-content: $jc;
+    flex-direction: $fd;
+    align-items: $aligni;
+}
+
+
+@mixin link($color, $fweight, $textd){
+    color: $color;
+    font-weight: $fweight;
+    text-decoration: $textd;
+    
 }

@@ -1,6 +1,6 @@
-@import '../mixins.scss';
-@import '../vars.scss';
-@import '../styleguide/buttons.scss';
+@import '../../components/mixins.scss';
+@import '../../components/vars.scss';
+@import '../../components/styleguide/buttons.scss';
 .registration {
     &__container {
         max-width: 100vw;
@@ -15,7 +15,7 @@
         width: 300px;
         padding: 1.666rem 3.33rem;
         @include boxShadow(0, 0, 10px, 0, rgba(0, 0, 0, 0.25));
-        @include flexCenter();
+        @include flexCenter(center, column);
     }
 
     &__heading {
@@ -27,23 +27,20 @@
 
     &__input {
         margin-bottom: 2rem;
-        @include flexCenter();
+        @include flexCenter(center, column);
     }
 
 
     &__link {
         display: flex;
-        font-weight: 600;
         justify-content: center;
         font-size: 1.13333333rem;
-        position:relative;
         padding: 1.66rem 0;
         border-top: 1px solid rgba($grey, 0.2);
         margin-top: 2.4rem;
 
         &-link {
-            color: $primary;
-            text-decoration: none;
+            @include link($primary, 600, none);
         }
 
     }

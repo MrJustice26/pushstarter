@@ -1,7 +1,8 @@
 import React from 'react';
 import { createMuiTheme, ThemeProvider} from '@material-ui/core';
-import {SignIn, SignUp} from './components/Registration';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { Auth, Home } from './pages';
+import Nav from './components/Nav/Nav';
 
 const theme = createMuiTheme({
   palette: {
@@ -28,11 +29,12 @@ function App() {
       <BrowserRouter>
         <div className="App">
           <Switch>
-            <Route path="/signin">
-              <SignIn />
+            <Route exact path={["/", "/signin", "/signup"]}>
+              <Auth />
             </Route>
-            <Route path="/signup">
-              <SignUp />
+            <Route exact path={'/home'}>
+              <Nav />
+              <Home />
             </Route>
           </Switch>
           
