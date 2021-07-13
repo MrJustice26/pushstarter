@@ -3,6 +3,10 @@ import { Formik, Form, Field } from "formik";
 import { Button } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { TextField } from 'formik-material-ui'
+import validateSignInForm from '../../Forms/SignInForm';
+import axios from 'axios';
+
+import MAlert from '../../components/Alert'
 
 
 interface IFormikValues {
@@ -11,39 +15,34 @@ interface IFormikValues {
 }
 
 export default function SignIn() {
+
+
+    const [textError, setTextError] = React.useState<string>("")
+
+    async function logIn(data: IFormikValues) {
+
+        try {
+            let res = await axios.post("http://localhost:5000/auth/login", data)
+            console.log(res)
+        } catch (e) {
+            setTextError(e?.response?.data?.message)
+        }
+
+    }
+
     return (
         <Formik
             initialValues={{
                 email: "",
                 password: ""
             }}
-            validate={(values) => {
-                const errors: Partial<IFormikValues> = {};
-                
-                // EMAIL
-                if (!values.email) {
-                    errors.email = "Required";
-                } else if (
-                    !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
-                ) {
-                    errors.email = "Invalid email address";
-                }
-
-                // PASSWORD
-                if(!values.password) {
-                    errors.password = "Required";
-                } else if(
-                    !/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/i.test(values.password)
-                ) {
-                    errors.password = "Password is too weak"
-                }
-
-                return errors;
+            validate={(values: IFormikValues) => {
+                return validateSignInForm(values)
             }}
             onSubmit={(values, { setSubmitting }) => {
                 setTimeout(() => {
                     setSubmitting(false);
-                    alert(JSON.stringify(values, null, 2));
+                    logIn(values)
                 }, 500);
             }}
         >
@@ -51,6 +50,7 @@ export default function SignIn() {
                 <Form className="registration__container">
                     <div className="registration__inner">
                         <h1 className="registration__heading">Sign In</h1>
+                        {textError && <MAlert text={textError} severity="error"/>}
                         <div className="registration__input">
                             <Field
                                 component={TextField}
@@ -73,16 +73,17 @@ export default function SignIn() {
                             color="primary"
                             disabled={isSubmitting}
                             onClick={submitForm}
+                            className="registration__button"
                         >
                             Sign In
                         </Button>
                         <div className="registration__link">
 
-                        <span>Don't have an account?</span>
-                        <Link to='/signup' className="registration__link-link">&nbsp;Sign up</Link>
+                            <span>Don't have an account?</span>
+                            <Link to='/signup' className="registration__link-link">&nbsp;Sign up</Link>
+                        </div>
                     </div>
-                    </div>
-                    
+
                 </Form>
 
             )}

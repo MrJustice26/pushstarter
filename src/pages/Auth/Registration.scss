@@ -9,9 +9,13 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        background-size: cover;
+        background: rgb(24,167,148);
+        background: linear-gradient(0deg, rgba(24,167,148,1) 0%, rgba(0,191,165,1) 100%);
 
     }
     &__inner {
+        background-color: #fff;
         width: 300px;
         padding: 1.666rem 3.33rem;
         @include boxShadow(0, 0, 10px, 0, rgba(0, 0, 0, 0.25));
@@ -26,10 +30,14 @@
     }
 
     &__input {
-        margin-bottom: 2rem;
+        height: 4.66rem;
         @include flexCenter(center, column);
+
     }
 
+    &__button {
+        margin-top: 1rem !important;
+    }
 
     &__link {
         display: flex;
@@ -38,6 +46,7 @@
         padding: 1.66rem 0;
         border-top: 1px solid rgba($grey, 0.2);
         margin-top: 2.4rem;
+        font-weight: 500;
 
         &-link {
             @include link($primary, 600, none);

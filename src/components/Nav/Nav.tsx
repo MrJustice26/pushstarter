@@ -1,12 +1,11 @@
 import React from 'react'
-import { AppBar, Toolbar, InputBase, Typography } from '@material-ui/core';
-import SearchIcon from '@material-ui/icons/Search';
-import SettingsIcon from '@material-ui/icons/Settings';
-import { Link } from 'react-router-dom';
+import { AppBar, Toolbar} from '@material-ui/core';
+import { Link} from 'react-router-dom';
 
 import './Nav.scss';
 
 export default function Nav() {
+
     return (
 
         <AppBar position="static" className="nav">
@@ -14,20 +13,12 @@ export default function Nav() {
                 <Toolbar className="nav__inner">
 
                     <div className="nav__item">
-                        <Link to='/' >My Projects</Link>
+                        <Link to='/my-projects' className="nav__item-link">My Projects</Link>
+                        <Link to="/explore" className="nav__item-link"> Explore Projects</Link>
                     </div>
                     <div className="nav__item">
-                        <div className="nav__input">
-                            <SearchIcon />
-                            <InputBase
-                                placeholder="Explore projects"
-                                inputProps={{ 'aria-label': 'search' }}
-                                className='nav__input-input'
-                            />
-                        </div>
-                    </div>
-                    <div className="nav__item"></div>
 
+                    </div>
 
                 </Toolbar>
             </div>

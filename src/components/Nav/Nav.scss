@@ -1,28 +1,20 @@
 @import '../mixins.scss';
 
 .nav {
-
+    &__container {
+        max-width: 1400px;
+        width: 100%;
+        margin: 0 auto;
+    }
     &__inner {
         @include flexCenter(space-between, row);
     }
     &__item {
+        &-link {
+            @include link(#fff, 500, none, 1.3rem);
 
+        } 
         
         
-    }
-    &__input{
-        padding: .33rem .66rem;
-        @include flexCenter(center, row, center);
-        background-color: rgba(#fff, .15);
-
-        &-input {
-            margin-left: .66rem;
-            color: #fff !important;
-            width: 200px;
-
-            &:focus {
-                width: 300px;
-            }
-        }
     }
 }

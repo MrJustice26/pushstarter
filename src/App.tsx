@@ -20,7 +20,8 @@ const theme = createMuiTheme({
       '"Montserrat"',
       'sans-serif'
     ].join(',')
-  }
+  },
+  spacing: 15
 })
 
 function App() {
