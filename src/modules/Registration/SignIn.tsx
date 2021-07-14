@@ -22,7 +22,7 @@ export default function SignIn() {
     async function logIn(data: IFormikValues) {
 
         try {
-            let res = await axios.post("http://localhost:5000/auth/login", data)
+            let res = await axios.post("http://localhost:5000/api/login", data)
             console.log(res)
         } catch (e) {
             setTextError(e?.response?.data?.message)
@@ -40,9 +40,9 @@ export default function SignIn() {
                 return validateSignInForm(values)
             }}
             onSubmit={(values, { setSubmitting }) => {
-                setTimeout(() => {
+                setTimeout(async () => {
                     setSubmitting(false);
-                    logIn(values)
+                    await logIn(values)
                 }, 500);
             }}
         >

@@ -32,26 +32,34 @@ export default function MAlert(props: IAlertProps) {
     const classes = useStyles();
     const [isOpen, setIsOpen] = React.useState(true);
 
+    React.useEffect(() => {
+        setTimeout(() => {
+            setIsOpen(false)
+        }, 4500)
+    }, [props.text])
 
     return (
-        <div className={classes.root} style={{display: isOpen ? 'block' : 'none'}}>
-            <Alert
-                className={classes.alert}
-                action={
-                    <IconButton
-                        aria-label="close"
-                        color="inherit"
-                        size="small"
-                        onClick={() => {
-                            setIsOpen(false);
-                        }}
-                    >
-                        <CloseIcon fontSize="inherit" />
-                    </IconButton>
-                }
-                severity={props.severity || "error"}>
-                {props.text || "No text for show!"}
-            </Alert>
+        <div className={classes.root}>
+            <Collapse in={isOpen}>
+                <Alert
+                    className={classes.alert}
+                    action={
+                        <IconButton
+                            aria-label="close"
+                            color="inherit"
+                            size="small"
+                            onClick={() => {
+                                setIsOpen(false);
+                            }}
+                        >
+                            <CloseIcon fontSize="inherit" />
+                        </IconButton>
+                    }
+                    severity={props.severity || "error"}>
+                    {props.text || "No text for show!"}
+                </Alert>
+            </Collapse>
+
 
         </div>
 
