@@ -8,7 +8,7 @@ function validateSignInForm(values: IFormikValues) {
     
     // EMAIL
     if (!values.email) {
-        errors.email = "Required";
+        errors.email = "Email required";
     } else if (
         !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
     ) {
@@ -17,7 +17,7 @@ function validateSignInForm(values: IFormikValues) {
 
     // PASSWORD
     if (!values.password) {
-        errors.password = "Required";
+        errors.password = "Password required";
     }
     return errors;
 }

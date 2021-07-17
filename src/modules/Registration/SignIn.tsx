@@ -1,12 +1,14 @@
-import React from 'react'
+import React, { useState, useContext } from 'react'
 import { Formik, Form, Field } from "formik";
 import { Button } from '@material-ui/core';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { TextField } from 'formik-material-ui'
-import validateSignInForm from '../../Forms/SignInForm';
-import axios from 'axios';
+import validateSignInForm from '../../components/Forms/SignInForm';
+
+import { CircularProgress } from '@material-ui/core';
 
 import MAlert from '../../components/Alert'
+import { Context } from '../..';
 
 
 interface IFormikValues {
@@ -16,22 +18,35 @@ interface IFormikValues {
 
 export default function SignIn() {
 
+    const history = useHistory();
 
-    const [textError, setTextError] = React.useState<string>("")
+    const { store } = useContext(Context);
+
+    const [textError, setTextError] = useState<string>("")
+    const [errorCount, setErrorCount] = useState<number>(0)
 
     async function logIn(data: IFormikValues) {
 
-        try {
-            let res = await axios.post("http://localhost:5000/api/login", data)
-            console.log(res)
-        } catch (e) {
-            setTextError(e?.response?.data?.message)
+
+        const { email, password } = data
+        const res = await store.login(email, password) || ''
+        if(!res){
+            history.push('/home')
+        } else {
+            setTextError(res)
+            setErrorCount(errCount => errCount + 1)
         }
+        
+
+
+
 
     }
 
     return (
         <Formik
+            validateOnChange={false}
+            validateOnBlur={false}
             initialValues={{
                 email: "",
                 password: ""
@@ -50,7 +65,7 @@ export default function SignIn() {
                 <Form className="registration__container">
                     <div className="registration__inner">
                         <h1 className="registration__heading">Sign In</h1>
-                        {textError && <MAlert text={textError} severity="error"/>}
+                        {textError && <MAlert errorCount={errorCount} text={textError} severity="error" />}
                         <div className="registration__input">
                             <Field
                                 component={TextField}
@@ -75,12 +90,13 @@ export default function SignIn() {
                             onClick={submitForm}
                             className="registration__button"
                         >
-                            Sign In
+
+                            {isSubmitting ? <CircularProgress size={22} /> : "Sign In"}
                         </Button>
                         <div className="registration__link">
 
                             <span>Don't have an account?</span>
-                            <Link to='/signup' className="registration__link-link">&nbsp;Sign up</Link>
+                            <Link to='/register' className="registration__link-link">&nbsp;Register</Link>
                         </div>
                     </div>
 

@@ -11,7 +11,7 @@ function validateSignUpForm(values: IFormikValues) {
 
     // EMAIL
     if (!values.email) {
-        errors.email = "Required";
+        errors.email = "Email required";
     } else if (
         !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
     ) {
@@ -20,12 +20,12 @@ function validateSignUpForm(values: IFormikValues) {
 
     // PASSWORD
     if (!values.password) {
-        errors.password = "Required";
+        errors.password = "Password required";
     } else if (
         // eslint-disable-next-line
         !/^(?=.*[A-Za-z])(?=.*\d)?([A-Za-z\d]?)([#?!@$%&*-]?).{6,18}$/im.test(values.password)
     ) {
-        errors.password = "The password is too weak!"
+        errors.password = "The password is too weak"
     }
 
     // REPEAT PASSWORD
@@ -33,10 +33,7 @@ function validateSignUpForm(values: IFormikValues) {
         errors.repeatPassword = "Passwords doesn't match!"
     }
     else if (!values.repeatPassword) {
-        errors.repeatPassword = "Required"
-    }
-    else if (!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/i.test(values.password)) {
-        errors.repeatPassword = "The password is too weak!"
+        errors.repeatPassword = "Repeat password required"
     }
 
     return errors;

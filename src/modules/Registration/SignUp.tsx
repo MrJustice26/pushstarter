@@ -1,15 +1,18 @@
 
-import React from 'react'
+import React, { useState, useContext } from 'react'
 import { Formik, Form, Field } from "formik";
-import { Button} from '@material-ui/core';
+import { Button } from '@material-ui/core';
 
 import { Link } from 'react-router-dom';
 import { TextField } from 'formik-material-ui'
-import axios from 'axios';
-import validateSignUpForm from '../../Forms/SignUpForm';
+import validateSignUpForm from '../../components/Forms/SignUpForm';
 
 import MAlert from '../../components/Alert'
+import { Context } from '../..';
 
+import { useHistory } from "react-router-dom";
+
+import { CircularProgress } from '@material-ui/core';
 
 interface IFormikValues {
     email: string;
@@ -19,29 +22,32 @@ interface IFormikValues {
 
 
 export default function SignUp() {
+    const history = useHistory();
 
-    const [textError, setTextError] = React.useState<string>("")
+    const { store } = useContext(Context)
 
-    const register = async (data: IFormikValues): Promise<void>  => {
+    const [textError, setTextError] = useState<string>("")
 
-        const headers = {
-            'Access-Control-Allow-Origin': 'http://127.0.0.1:3000',
-            'Access-Control-Allow-Credentials': 'true'
-        }
+    const [isRegistered, setIsRegistered] = useState<boolean>(false)
+    const [errorCount, setErrorCount] = useState<number>(0)
 
-        try {
-            let res = await axios.post("http://localhost:5000/auth/registration", data, {headers})
-            if(res['status'] === 200){
-                
-            }
-        } catch (e) {
-            setTextError(e?.response?.data?.message)
+    const register = async (data: IFormikValues): Promise<void> => {
+
+        const { email, password } = data
+        const res = await store.registration(email, password) || ''
+        if(!res){
+            setIsRegistered(!isRegistered)
+        } else {
+            setTextError(res)
+            setErrorCount(errCount => errCount + 1)
         }
 
     }
 
     return (
         <Formik
+            validateOnChange={false}
+            validateOnBlur={false}
             initialValues={{
                 email: "",
                 password: "",
@@ -52,16 +58,19 @@ export default function SignUp() {
             }}
             onSubmit={(values: IFormikValues, { setSubmitting }) => {
                 setTimeout(async () => {
-                    await register(values)
+                    let res = await register(values)
+                    console.log(res)
                     setSubmitting(false);
+
+                    
                 }, 500);
             }}
         >
             {({ submitForm, isSubmitting }) => (
                 <Form className="registration__container">
-                    <div className="registration__inner">
+                    {!isRegistered ? (<div className="registration__inner">
                         <h1 className="registration__heading">Sign Up</h1>
-                        {textError && <MAlert text={textError} severity="error"/>}
+                        {textError && <MAlert errorCount={errorCount} text={textError} severity="error" />}
                         <div className="registration__input">
                             <Field
                                 component={TextField}
@@ -95,16 +104,24 @@ export default function SignUp() {
                             onClick={submitForm}
                             className="registration__button"
                         >
-                            {isSubmitting ? "Loading..." : 'Create Account'}
+                            {isSubmitting ? <CircularProgress size={22} />  : "Register"}
                         </Button>
 
-                        
+
                         <div className="registration__link">
 
                             <span>Already have an account?</span>
-                            <Link to='/signin' className="registration__link-link">&nbsp;Sign in</Link>
+                            <Link to='/login' className="registration__link-link">&nbsp;Log in</Link>
                         </div>
+
+                        
                     </div>
+                    ) : (
+                    <div className="registration__info">
+                        <h2>Verification link has been sent!</h2>
+                        <h4>Please check your email to procceed registration</h4>
+                    </div>
+                    )}
 
                 </Form>
 

@@ -9,7 +9,8 @@ import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 interface IAlertProps {
     text: string,
     severity?: Color | undefined,
-    icon?: string
+    icon?: string,
+    errorCount: number
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -32,11 +33,13 @@ export default function MAlert(props: IAlertProps) {
     const classes = useStyles();
     const [isOpen, setIsOpen] = React.useState(true);
 
+
     React.useEffect(() => {
-        setTimeout(() => {
-            setIsOpen(false)
-        }, 4500)
-    }, [props.text])
+        setIsOpen(false);
+    }, [])
+    React.useEffect(() => {
+        setIsOpen(true);
+    }, [props.errorCount])
 
     return (
         <div className={classes.root}>

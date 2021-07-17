@@ -14,7 +14,7 @@
         background: linear-gradient(0deg, rgba(24,167,148,1) 0%, rgba(0,191,165,1) 100%);
 
     }
-    &__inner {
+    &__inner, &__info {
         background-color: #fff;
         width: 300px;
         padding: 1.666rem 3.33rem;
@@ -37,6 +37,7 @@
 
     &__button {
         margin-top: 1rem !important;
+        text-transform:none !important;
     }
 
     &__link {
@@ -49,8 +50,16 @@
         font-weight: 500;
 
         &-link {
-            @include link($primary, 600, none);
+            @include link($primary-dark, 600, none);
+        }
+        a:hover {
+            color: $black;
         }
 
     }
+
+    &__info {
+        line-height: 1.4;
+    }
 }
+

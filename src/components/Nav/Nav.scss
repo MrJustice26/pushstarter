@@ -1,4 +1,5 @@
 @import '../mixins.scss';
+@import '../vars.scss';
 
 .nav {
     &__container {
@@ -8,13 +9,20 @@
     }
     &__inner {
         @include flexCenter(space-between, row);
+        display: flex;
+        justify-content: space-between;
     }
     &__item {
         &-link {
-            @include link(#fff, 500, none, 1.3rem);
-
+            @include link($primary, bold, none, 1.06rem);
+            padding: .3rem 1rem;
+            transition: color .2s;
         } 
         
         
     }
+}
+
+a:hover {
+    color: $black;
 }
