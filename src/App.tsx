@@ -1,15 +1,15 @@
 import React from 'react';
 import { createMuiTheme, ThemeProvider} from '@material-ui/core';
 import { BrowserRouter, Switch, Route, useHistory} from 'react-router-dom';
-import { Auth, Home } from './pages';
+import {Auth, Home, UserProjects} from './pages';
 import Nav from './components/Nav/Nav';
 
 
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: '#18A794',
-      light: '#00BFA5'
+      main: '#30655E',
+      light: '#2E8B7E'
     },
     secondary: {
       main: '#212121',
@@ -18,8 +18,7 @@ const theme = createMuiTheme({
   },
   typography: {
     fontFamily: [
-      '"Montserrat"',
-      'sans-serif'
+      '"Inter"'
     ].join(',')
   },
   spacing: 15
@@ -27,7 +26,6 @@ const theme = createMuiTheme({
 
 function App() {
 
-  
 
   return (
     <ThemeProvider theme={theme}>
@@ -37,10 +35,15 @@ function App() {
             <Route exact path={["/", "/login", "/register"]}>
               <Auth />
             </Route>
-            <Route exact path={'/home'}>
+            <Route path={'/home'}>
               <Nav />
               <Home />
             </Route>
+            <Route path={'/my-projects'}>
+              <Nav />
+              <UserProjects />
+            </Route>
+
           </Switch>
           
         </div>

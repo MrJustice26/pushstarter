@@ -10,7 +10,8 @@ interface IAlertProps {
     text: string,
     severity?: Color | undefined,
     icon?: string,
-    errorCount: number
+    color?: Color
+    // errorCount: number
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -31,37 +32,16 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function MAlert(props: IAlertProps) {
     const classes = useStyles();
-    const [isOpen, setIsOpen] = React.useState(true);
-
-
-    React.useEffect(() => {
-        setIsOpen(false);
-    }, [])
-    React.useEffect(() => {
-        setIsOpen(true);
-    }, [props.errorCount])
 
     return (
         <div className={classes.root}>
-            <Collapse in={isOpen}>
                 <Alert
                     className={classes.alert}
-                    action={
-                        <IconButton
-                            aria-label="close"
-                            color="inherit"
-                            size="small"
-                            onClick={() => {
-                                setIsOpen(false);
-                            }}
-                        >
-                            <CloseIcon fontSize="inherit" />
-                        </IconButton>
-                    }
+                    
+                    color={props.color || "error"}
                     severity={props.severity || "error"}>
                     {props.text || "No text for show!"}
                 </Alert>
-            </Collapse>
 
 
         </div>

@@ -23,7 +23,7 @@ export default function SignIn() {
     const { store } = useContext(Context);
 
     const [textError, setTextError] = useState<string>("")
-    const [errorCount, setErrorCount] = useState<number>(0)
+    // const [errorCount, setErrorCount] = useState<number>(0)
 
     async function logIn(data: IFormikValues) {
 
@@ -34,7 +34,7 @@ export default function SignIn() {
             history.push('/home')
         } else {
             setTextError(res)
-            setErrorCount(errCount => errCount + 1)
+            // setErrorCount(errCount => errCount + 1)
         }
         
 
@@ -64,8 +64,8 @@ export default function SignIn() {
             {({ submitForm, isSubmitting }) => (
                 <Form className="registration__container">
                     <div className="registration__inner">
-                        <h1 className="registration__heading">Sign In</h1>
-                        {textError && <MAlert errorCount={errorCount} text={textError} severity="error" />}
+                        <h1 className="registration__heading">Log in</h1>
+                        {textError && <MAlert text={textError} severity="error" />}
                         <div className="registration__input">
                             <Field
                                 component={TextField}
@@ -88,6 +88,7 @@ export default function SignIn() {
                             color="primary"
                             disabled={isSubmitting}
                             onClick={submitForm}
+                            
                             className="registration__button"
                         >
 

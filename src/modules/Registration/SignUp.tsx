@@ -29,7 +29,7 @@ export default function SignUp() {
     const [textError, setTextError] = useState<string>("")
 
     const [isRegistered, setIsRegistered] = useState<boolean>(false)
-    const [errorCount, setErrorCount] = useState<number>(0)
+    // const [errorCount, setErrorCount] = useState<number>(0)
 
     const register = async (data: IFormikValues): Promise<void> => {
 
@@ -39,7 +39,7 @@ export default function SignUp() {
             setIsRegistered(!isRegistered)
         } else {
             setTextError(res)
-            setErrorCount(errCount => errCount + 1)
+            // setErrorCount(errCount => errCount + 1)
         }
 
     }
@@ -69,8 +69,8 @@ export default function SignUp() {
             {({ submitForm, isSubmitting }) => (
                 <Form className="registration__container">
                     {!isRegistered ? (<div className="registration__inner">
-                        <h1 className="registration__heading">Sign Up</h1>
-                        {textError && <MAlert errorCount={errorCount} text={textError} severity="error" />}
+                        <h1 className="registration__heading">Register</h1>
+                        {textError && <MAlert text={textError} severity="error" />}
                         <div className="registration__input">
                             <Field
                                 component={TextField}

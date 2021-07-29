@@ -22,6 +22,8 @@ export default class Store {
         this.user = user;
     }
 
+
+
     async login(email: string, password: string){
         try {
             const response = await AuthService.login(email, password);
@@ -49,6 +51,8 @@ export default class Store {
             localStorage.removeItem('token');
             this.setAuth(false);
             this.setUser({} as IUser);
+
+            console.log(response)
         } catch (e) {
             return e.response?.data?.message
         }

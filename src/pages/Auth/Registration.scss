@@ -1,6 +1,5 @@
-@import '../../components/mixins.scss';
-@import '../../components/vars.scss';
-@import '../../components/styleguide/buttons.scss';
+@import '../../styles/mixins.scss';
+@import '../../styles/vars.scss';
 .registration {
     &__container {
         max-width: 100vw;
@@ -11,7 +10,7 @@
         align-items: center;
         background-size: cover;
         background: rgb(24,167,148);
-        background: linear-gradient(0deg, rgba(24,167,148,1) 0%, rgba(0,191,165,1) 100%);
+        background: linear-gradient(0deg, #038573 0%, #30655E 100%);
 
     }
     &__inner, &__info {
@@ -36,13 +35,13 @@
     }
 
     &__button {
-        margin-top: 1rem !important;
+        margin-top: 2rem !important;
         text-transform:none !important;
     }
 
     &__link {
         display: flex;
-        justify-content: center;
+        justify-content: left;
         font-size: 1.13333333rem;
         padding: 1.66rem 0;
         border-top: 1px solid rgba($grey, 0.2);
@@ -50,7 +49,7 @@
         font-weight: 500;
 
         &-link {
-            @include link($primary-dark, 600, none);
+            @include link($primary, 600, none);
         }
         a:hover {
             color: $black;
