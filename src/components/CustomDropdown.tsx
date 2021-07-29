@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import {createStyles, makeStyles, Theme} from "@material-ui/core/styles";
@@ -11,11 +11,11 @@ const useStyles = makeStyles((theme: Theme) =>
             margin: 0,
             padding: 0,
             boxSizing: "border-box",
-            height: '10vh'
+
         },
         button: {
-            border: "none",
-            background: 0,
+            color: "#fff"
+
         },
         link: {
             display: "flex",
@@ -27,19 +27,22 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         list: {
             fontSize: "16px",
-            padding: 0,
+            opacity: 0,
+            transform: 'translateY(-10px)',
+            transition: 'all .4s ease',
+            padding: '10px 0 0',
             position: "absolute",
             background: "#fff",
             marginTop: "10px",
             right: 0,
             width: "200px",
-            height: "150px",
             listStyle: "none",
             display: "flex",
             justifyContent:"space-around",
             flexDirection: "column",
             borderRadius: "5px",
-            boxShadow: "0 4px 4px 1px rgba(0, 0, 0, .25)"
+            boxShadow: "0 4px 4px 1px rgba(0, 0, 0, .25)",
+
         },
         item: {
             display: 'flex',
@@ -48,19 +51,28 @@ const useStyles = makeStyles((theme: Theme) =>
             color: "#30655E",
             padding: "0 22px",
             transition: "background-color .2s",
-            "&:hover": {
+            "&:hover:not(:first-child)": {
                 cursor: "pointer",
                 backgroundColor: "rgba(196, 196, 196, .44)"
+            },
+            "&:last-child": {
+                borderTop: "1px solid #BABABA"
             }
         },
 
         option: {
-            textDecoration: "none",
             color: "#30655E",
-            marginLeft: "22px",
+            textDecoration: "none",
+            fontSize: "15px",
             height: "30px",
             display: 'flex',
             alignItems: "center",
+            fontWeight: 500,
+            "&:hover": {
+                "background": "none",
+                "color": "inherit"
+            },
+
 
         },
         avatar: {
@@ -73,6 +85,10 @@ const useStyles = makeStyles((theme: Theme) =>
             overflow: "hidden",
             whiteSpace: "nowrap",
             textOverflow: "ellipsis"
+        },
+        active: {
+            opacity: 1,
+            transform: 'translateY(0)',
         }
 
     }),
@@ -80,14 +96,18 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const CustomDropdown = () => {
 
+
+
+    const [isDisabled, setIsDisabled] = useState<boolean>(false)
+
     const classes = useStyles()
+
 
     return (
         <div className={classes.dropdown}>
-            <Button ><a href="#" className={classes.link}>Account <ExpandMoreIcon /></a></Button>
+            <Button className={classes.button} onClick={() => setIsDisabled(val => !val)}>Account <ExpandMoreIcon /></Button>
             <div className={classes.options}>
-                <button>Projects</button>
-                <ul className={classes.list}>
+                <ul className={!isDisabled ? classes.list : `${classes.list} ${classes.active}`}>
                     <li className={classes.item}><AccountCircleIcon className={classes.avatar}/> <span className={classes.userName}>vladislav2074@gmail.com</span></li>
                     <li className={classes.item}><a className={classes.option} href="#">My projects</a></li>
                     <li className={classes.item}><a className={classes.option} href="#">Settings</a></li>
